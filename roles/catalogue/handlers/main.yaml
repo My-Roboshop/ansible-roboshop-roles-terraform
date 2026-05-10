@@ -1,0 +1,6 @@
+- name: daemon-reload
+# this is equal to systemctl daemon-reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+# Handlers are like notifiers. When there is a change in particular task, we can notify other tasks. If there is no change, we dont need to run.

@@ -1,0 +1,9 @@
+MONGODB_HOST: mongodb.gokul.shop
+REDIS_HOST: redis.gokul.shop
+CATALOGUE_HOST: catalogue.gokul.shop
+CART_HOST: cart.gokul.shop
+MYSQL_HOST: mysql.gokul.shop
+RABBITMQ_HOST: rabbitmq.gokul.shop
+USER_HOST: user.gokul.shop
+SHIPPING_HOST: shipping.gokul.shop
+PAYMENT_HOST: payment.gokul.shop

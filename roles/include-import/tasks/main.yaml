@@ -1,0 +1,13 @@
+- name: include the role
+# ansible.builtin.include_role:
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: include-import.yaml
+
+# include_role
+# ==============
+# it includes at run time, checks while processing. include will not respect tags. We must explicitly set inside the tasks
+
+# import_role
+# ==============
+# imports the role before exection and parse it, checks before processing. applying tags at the import setup to all the tasks automatically.

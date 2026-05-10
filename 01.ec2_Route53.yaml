@@ -1,0 +1,68 @@
+- name: create aws ec2 and r53
+  hosts: local
+  connection: local
+  vars:
+    ami_id: "ami-0220d79f3f480ecf5"
+    sg_id: "0d26f1efaf1fae97d"
+    zone_id: "Z0497875WFX6BJ1PL5O6"
+    domain_name: "gokul.shop"
+    # instances:
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
+
+    # we can pass instances through command line using -e
+    #ansible-paybook -i inventory.ini 01.ec2_Route53.yaml -e "instances=['mongodb','redis','mysql','shipping','payment','frontend','rabbitmq','catalogue','user','cart']"
+  tasks:
+  - name: create ec2 instance
+    amazon.aws.ec2_instance:
+      name: "{{ item }}"
+      instance_type: t3.micro
+      security_group: "{{ sg_id }}"
+      image_id: "{{ ami_id }}"
+      tags:
+        Name: "{{ item }}"
+    loop: "{{ instances }}"
+    register: ec2_output
+
+  # - name: Print the ec2_output
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_output }}"
+
+  # - name: Print public IP
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].public_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"
+
+  # - name: Print private IP
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].private_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"   
+
+  - name: route 53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+      wait: true
+      loop: "{{ ec2_output.results }}" 
+
+  # we are creating one record with public ip only for frontend
+  - name: route 53 record for frontend
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+      wait: true
+      when: item.item == "frontend"
+      loop: "{{ ec2_output.results }}"    
+
