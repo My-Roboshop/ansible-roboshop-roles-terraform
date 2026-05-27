@@ -1,1 +1,1 @@
-MONGODB_HOST: mongodb.gokul.shop
+MONGODB_HOST: mongodb-{{ env }}.gokul.fun
