@@ -1,9 +1,19 @@
-MONGODB_HOST: mongodb.gokul.fun
-REDIS_HOST: redis.gokul.fun
-CATALOGUE_HOST: catalogue.gokul.fun
-CART_HOST: cart.gokul.fun
-MYSQL_HOST: mysql.gokul.fun
-RABBITMQ_HOST: rabbitmq.gokul.fun
-USER_HOST: user.gokul.fun
-SHIPPING_HOST: shipping.gokul.fun
-PAYMENT_HOST: payment.gokul.fun
+# MONGODB_HOST: mongodb-{{ env }}.gokul.fun
+# REDIS_HOST: redis-{{ env }}.gokul.fun
+# CATALOGUE_HOST: catalogue-{{ env }}.gokul.fun
+# CART_HOST: cart-{{ env }}.gokul.fun
+# MYSQL_HOST: mysql-{{ env }}.gokul.fun
+# RABBITMQ_HOST: rabbitmq-{{ env }}.gokul.fun
+# USER_HOST: user-{{ env }}.gokul.fun
+# SHIPPING_HOST: shipping-{{ env }}.gokul.fun
+# PAYMENT_HOST: payment-{{ env }}.gokul.fun
+
+MONGODB_HOST: mongodb-{{ env }}-{{ env }}.gokul.fun
+REDIS_HOST: redis-{{ env }}.gokul.fun
+CATALOGUE_HOST: catalogue-{{ env }}.gokul.fun
+CART_HOST: cart-{{ env }}.gokul.fun
+MYSQL_HOST: mysql-{{ env }}.gokul.fun
+RABBITMQ_HOST: rabbitmq-{{ env }}.gokul.fun
+USER_HOST: user-{{ env }}.gokul.fun
+SHIPPING_HOST: shipping-{{ env }}.gokul.fun
+PAYMENT_HOST: payment-{{ env }}.gokul.fun
